@@ -30,9 +30,9 @@
 
     //exportando rota
 
-    module.exports {
+    module.exports={
         getProducts
-    }
+    };
 
 
 
