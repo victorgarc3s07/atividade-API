@@ -14,11 +14,15 @@
 
     /*CRIANDO ROTA PARA ATUALIZAR PRODUTOS(PUT)*/
     
-    router.put('/:id_product', controllerRouter.updateProductsPut);
+    router.put('/:id_product', controllerRouter.UpdateProductsPut);
 
     /*CRIANDO ROTA PARA ATUALIZAR PARCIALMENTE(PATCH)*/
+
+    router.patch('/:id_product', controllerRouter.UpdateProductsPatch)
     
-    //router.patch('/:id_product', controllerRouter.updateProductsPatch);
+    /*criando rota para deleter produto no inventário(delete)*/
+
+    router.delete('/:id_product', controllerRouter.DeleteProducts);
 
 
 

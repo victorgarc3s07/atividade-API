@@ -36,7 +36,7 @@ const db = require('../config/db');
 
         /*CONFIGURANDO ROTA PARA ATUALIZAR COMPLETAMENTE O INVENTÁRIO(PUT)*/
         
-        const updateProductsPut = (req, res) => {
+        const UpdateProductsPut = (req, res) => {
             const {id_product} = req.params;
             const {name_product, description_product, category, price_product, quant_product, data_validade} = req.body;
 
@@ -55,8 +55,38 @@ const db = require('../config/db');
 
         /*CONFIGURANDO ROTA PARA ATUALIZAR PARCIALMENTE(PATCH)*/
         
-        
+        const UpdateProductsPatch = (req, res) => {
+            const {id_product} = req.params;
+            const fields = req.body;
+            const query = [];
+            const values = [];
 
+            for (const[key,value] of Object.entries(fields)) {
+                query.push(`${key}=?`);
+                values.push(value);
+            };
+            
+            values.push(id_product);
+
+            db.query(
+                `UPDATE products SET ${query.join(',')} WHERE id_product=?`,
+                values,
+                (err, results) => {
+                    if(err) {
+                        console.error('ERRO AO ATUALIZAR O INVENTÁRIO!', err);
+                        res.status(500).send('ERRO. Não foi possível atualizar o inventário');
+                    return;
+                    }
+                    res.send('Inventário atualizado com sucesso!');
+                }
+            )
+        };
+
+        /*CONFIGURANDO ROTA PARA DELETAR O PRODUTO DO INVENTÁRIO*/
+
+        const DeleteProducts = (req, res) => {
+            
+        }
 
 
 
@@ -70,8 +100,9 @@ const db = require('../config/db');
     module.exports = {
         getAllProducts,
         AddProducts,
-        updateProductsPut,
-
+        UpdateProductsPut,
+        UpdateProductsPatch,
+        DeleteProducts
     };
 
 
