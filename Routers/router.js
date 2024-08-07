@@ -25,8 +25,6 @@
     router.delete('/:id_product', controllerRouter.DeleteProducts);
 
 
-
-
     /* exportando rotas */
     module.exports = router;
 

@@ -3,7 +3,7 @@
     const { configDotenv } = require('dotenv');
 const db = require('../config/db');
 
-    //configurando rota para puxar todas as movimentações
+    //configurando rota para puxar todas os produtos
     
     const getAllProducts = (req, res) => {
         
@@ -25,9 +25,8 @@ const db = require('../config/db');
         db.query('INSERT INTO products(name_product, description_product, category, price_product, quant_product, data_validade) VALUES (?,?,?,?,?,?)', [name_product, description_product, category, price_product, quant_product, data_validade],
             (err, results) => {
                 if(err) {
-                    console.error('Erro ao adicionar produto. Tente novamente', err)
-                    console.log('ERRO AO ADICIONAR PRODUTO', err)
-                    res.status(500).send('erro ao adicionar produto');
+                    console.error('ERRO AO ADICIONAR PRODUTO. TENTE NOVAMENTE', err);
+                    res.status(500).send('erro ao adicionar produto, tente novamente');
                 return;
                 }
             res.status(201).send('Produto adicionado com sucesso');
@@ -73,7 +72,7 @@ const db = require('../config/db');
                 values,
                 (err, results) => {
                     if(err) {
-                        console.error('ERRO AO ATUALIZAR O INVENTÁRIO!', err);
+                        console.error('ERRO AO ATUALIZAR PRODUTO NO INVENTÁRIO!', err);
                         res.status(500).send('ERRO. Não foi possível atualizar o inventário');
                     return;
                     }
@@ -85,16 +84,20 @@ const db = require('../config/db');
         /*CONFIGURANDO ROTA PARA DELETAR O PRODUTO DO INVENTÁRIO*/
 
         const DeleteProducts = (req, res) => {
-            
-        }
-
-
-
-
-
-
-
-
+            const {id_product} = req.params;
+                db.query ('DELETE FROM products WHERE id_product = ?', [id_product],
+                    (err, results) => {
+                        
+                    if(err) {
+                        console.error('Erro ao deletar transação', err);
+                        res.status(500).send('erro ao deletar transação');
+                    return;
+                    }
+                    res.status(201).send('TRANSAÇÃO DELETADA COM SUCESSO');
+                    }
+                );
+            };
+        
     //exportando rota
 
     module.exports = {
