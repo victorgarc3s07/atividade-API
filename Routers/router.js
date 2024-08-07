@@ -20,7 +20,7 @@
 
     router.patch('/:id_product', controllerRouter.UpdateProductsPatch)
     
-    /*criando rota para deleter produto no inventário(delete)*/
+    /*criando rota para deletar produto no inventário(delete)*/
 
     router.delete('/:id_product', controllerRouter.DeleteProducts);
 
